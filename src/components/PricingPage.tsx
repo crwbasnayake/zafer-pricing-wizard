@@ -4,6 +4,7 @@ import PricingToggle from './PricingToggle';
 import PricingFAQ from './PricingFAQ';
 import PricingFooter from './PricingFooter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Check, X } from 'lucide-react';
 
 const PricingPage = () => {
@@ -195,9 +196,21 @@ const PricingPage = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Choose the perfect plan for you
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
             Explore Zafer's packages tailored for individuals, small businesses, and enterprise clients. From data privacy and security to AI-powered solutions, each plan offers secure, seamless workflows.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+              Start Free Trial
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3"
+            >
+              Request Demo
+            </Button>
+          </div>
         </div>
 
         {/* Monthly/Yearly Toggle */}
