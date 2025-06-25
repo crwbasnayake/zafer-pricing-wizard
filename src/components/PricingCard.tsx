@@ -16,6 +16,8 @@ interface PricingCardProps {
   };
   isPopular?: boolean;
   isEnterprise?: boolean;
+  isYearly: boolean;
+  slogan: string;
 }
 
 const PricingCard: React.FC<PricingCardProps> = ({
@@ -26,10 +28,10 @@ const PricingCard: React.FC<PricingCardProps> = ({
   storage,
   features,
   isPopular,
-  isEnterprise
+  isEnterprise,
+  isYearly,
+  slogan
 }) => {
-  const [isYearly, setIsYearly] = React.useState(false);
-
   const renderFeatureValue = (value: boolean | string) => {
     if (typeof value === 'boolean') {
       return value ? (
@@ -51,24 +53,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
       
       <CardHeader className="text-center pb-4">
         <CardTitle className="text-xl font-bold">{name}</CardTitle>
+        <p className="text-sm text-gray-600 mt-2">{slogan}</p>
+        
         <div className="mt-4">
           {!isEnterprise ? (
             <>
-              <div className="flex items-center justify-center space-x-2 mb-2">
-                <button
-                  onClick={() => setIsYearly(false)}
-                  className={`px-3 py-1 rounded text-sm ${!isYearly ? 'bg-blue-500 text-white' : 'text-gray-600'}`}
-                >
-                  Monthly
-                </button>
-                <button
-                  onClick={() => setIsYearly(true)}
-                  className={`px-3 py-1 rounded text-sm ${isYearly ? 'bg-blue-500 text-white' : 'text-gray-600'}`}
-                >
-                  Yearly
-                </button>
-              </div>
-              
               <div className="text-3xl font-bold">
                 {isYearly ? yearlyPrice : monthlyPrice}
                 {!isYearly && monthlyPrice !== 'Free' && <span className="text-sm text-gray-500">/month</span>}

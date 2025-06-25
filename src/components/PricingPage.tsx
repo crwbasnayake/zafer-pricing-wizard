@@ -1,16 +1,21 @@
-
 import React from 'react';
 import PricingCard from './PricingCard';
+import PricingToggle from './PricingToggle';
+import PricingFAQ from './PricingFAQ';
+import PricingFooter from './PricingFooter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, X } from 'lucide-react';
 
 const PricingPage = () => {
+  const [isYearly, setIsYearly] = React.useState(false);
+
   const pricingData = [
     {
       name: 'Starter',
       monthlyPrice: 'Free',
       yearlyPrice: 'Free',
       storage: '2GB (~$0.05)',
+      slogan: 'Perfect for trying out Zafer\'s core features',
       features: {
         'My Files': true,
         'Scanner': true,
@@ -39,6 +44,7 @@ const PricingPage = () => {
       yearlyPrice: '$59.99',
       yearlyDiscount: '(4.99$/m) 50% off',
       storage: '10GB (~$0.23)',
+      slogan: 'Essential features for individual productivity',
       features: {
         'My Files': true,
         'Scanner': true,
@@ -67,6 +73,7 @@ const PricingPage = () => {
       yearlyPrice: '$149.99',
       yearlyDiscount: '(12.49$/m) 37.5% off',
       storage: '40GB (~$0.92)',
+      slogan: 'Advanced features for power users and professionals',
       features: {
         'My Files': true,
         'Scanner': true,
@@ -95,6 +102,7 @@ const PricingPage = () => {
       yearlyPrice: '$359.99',
       yearlyDiscount: '(29.99$/m) 25% off',
       storage: '100GB/user (~$2.30)',
+      slogan: 'Complete solution for small to medium teams',
       features: {
         'My Files': true,
         'Scanner': true,
@@ -123,6 +131,7 @@ const PricingPage = () => {
       monthlyPrice: 'Contact us',
       yearlyPrice: 'Contact us',
       storage: 'Contact us',
+      slogan: 'Tailored solutions for large organizations',
       features: {
         'My Files': true,
         'Scanner': true,
@@ -184,17 +193,20 @@ const PricingPage = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Choose Your Perfect Plan
+            Choose the perfect plan for you
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            From individual users to enterprise teams, we have the right solution for your document management and e-signature needs.
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            Explore Zafer's packages tailored for individuals, small businesses, and enterprise clients. From data privacy and security to AI-powered solutions, each plan offers secure, seamless workflows.
           </p>
         </div>
+
+        {/* Monthly/Yearly Toggle */}
+        <PricingToggle isYearly={isYearly} onToggle={setIsYearly} />
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16">
           {pricingData.map((plan, index) => (
-            <PricingCard key={index} {...plan} />
+            <PricingCard key={index} {...plan} isYearly={isYearly} />
           ))}
         </div>
 
@@ -235,21 +247,11 @@ const PricingPage = () => {
           </Card>
         </div>
 
-        {/* FAQ or Additional Info Section */}
-        <div className="mt-16 text-center">
-          <h2 className="text-2xl font-bold mb-4">Need Help Choosing?</h2>
-          <p className="text-gray-600 mb-6">
-            Our team is here to help you find the perfect plan for your needs.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
-              Contact Sales
-            </button>
-            <button className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors">
-              Schedule Demo
-            </button>
-          </div>
-        </div>
+        {/* FAQ Section */}
+        <PricingFAQ />
+
+        {/* Footer */}
+        <PricingFooter />
       </div>
     </div>
   );
