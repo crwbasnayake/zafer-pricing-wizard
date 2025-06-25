@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PricingCard from './PricingCard';
 import PricingToggle from './PricingToggle';
@@ -11,35 +10,24 @@ import { Check, X } from 'lucide-react';
 const PricingPage = () => {
   const [isYearly, setIsYearly] = React.useState(false);
 
-  const pricingData = [
-    {
-      name: 'Starter',
-      monthlyPrice: 'Free',
-      yearlyPrice: 'Free',
-      storage: '2GB (~$0.05)',
-      slogan: 'Perfect for trying out Zafer\'s core features',
-      features: {
-        'My Files': true,
-        'Scanner': true,
-        'Quick Sign': true,
-        'e-Sign': '1/month',
-        'No of Users': '1',
-        'AI Grammar Correction': false,
-        'AI Summary': false,
-        'Templates': false,
-        'Bulk Sign': false,
-        'AI Search / Document Chat': false,
-        'Token / Msg Limit': false,
-        'Team Vault & Management': false,
-        'Role-based Permissions': false,
-        'Delegation / Sendback': false,
-        'Support': 'Self-help only',
-        'API & SDK Access': false,
-        'Custom Branding & Hosting': false,
-      },
-      isPopular: false,
-      isEnterprise: false,
-    },
+  const freePlan = {
+    name: 'Starter',
+    monthlyPrice: 'Free',
+    yearlyPrice: 'Free',
+    storage: '2GB (~$0.05)',
+    slogan: 'Perfect for trying out Zafer\'s core features',
+    availableFeatures: [
+      'My Files',
+      'Scanner', 
+      'Quick Sign',
+      '1 User',
+      'Self-help only Support'
+    ],
+    isPopular: false,
+    isEnterprise: false,
+  };
+
+  const paidPlans = [
     {
       name: 'Individual',
       monthlyPrice: '$9.99',
@@ -217,12 +205,57 @@ const PricingPage = () => {
           </div>
         </div>
 
+        {/* Free Plan Section */}
+        <div className="mb-12">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-white mb-2">Try Zafer for Free</h2>
+            <p className="text-white/80">Get started with our core features at no cost</p>
+          </div>
+          
+          <div className="max-w-md mx-auto">
+            <Card className="bg-white/95 backdrop-blur-lg border-0 shadow-2xl transition-all duration-300 hover:shadow-3xl hover:-translate-y-2">
+              <CardHeader className="text-center pb-4">
+                <CardTitle className="text-xl font-bold text-gray-800">{freePlan.name}</CardTitle>
+                <p className="text-sm text-gray-600 mt-2">{freePlan.slogan}</p>
+                
+                <div className="mt-4">
+                  <div className="text-4xl font-bold text-purple-600">Free</div>
+                  <div className="text-lg text-green-600 font-medium mt-1">Forever</div>
+                </div>
+                
+                <div className="text-sm text-gray-600 mt-2">
+                  Storage: {freePlan.storage}
+                </div>
+              </CardHeader>
+
+              <CardContent className="space-y-3">
+                <div className="mb-4">
+                  <h4 className="text-sm font-semibold text-gray-700 mb-3">What's included:</h4>
+                  {freePlan.availableFeatures.map((feature, index) => (
+                    <div key={index} className="flex items-center mb-2">
+                      <Check className="w-4 h-4 text-green-500 mr-3 flex-shrink-0" />
+                      <span className="text-sm text-gray-700">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <Button 
+                  className="w-full mt-6 font-semibold transition-all duration-300 border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white bg-transparent"
+                  variant="outline"
+                >
+                  Get Started Free
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         {/* Monthly/Yearly Toggle */}
         <PricingToggle isYearly={isYearly} onToggle={setIsYearly} />
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-16">
-          {pricingData.map((plan, index) => (
+        {/* Paid Plans Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {paidPlans.map((plan, index) => (
             <PricingCard key={index} {...plan} isYearly={isYearly} />
           ))}
         </div>
@@ -239,7 +272,7 @@ const PricingPage = () => {
                   <thead>
                     <tr className="border-b-2 border-gray-200">
                       <th className="text-left py-4 px-4 font-semibold text-gray-800">Features</th>
-                      {pricingData.map((plan) => (
+                      {paidPlans.map((plan) => (
                         <th key={plan.name} className="text-center py-4 px-4 font-semibold min-w-32 text-gray-800">
                           {plan.name}
                         </th>
@@ -250,7 +283,7 @@ const PricingPage = () => {
                     {comparisonFeatures.map((feature, index) => (
                       <tr key={feature} className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-gray-50/50' : ''}`}>
                         <td className="py-3 px-4 font-medium text-gray-700">{feature}</td>
-                        {pricingData.map((plan) => (
+                        {paidPlans.map((plan) => (
                           <td key={`${plan.name}-${feature}`} className="py-3 px-4 text-center">
                             {renderComparisonValue(plan.features[feature])}
                           </td>
