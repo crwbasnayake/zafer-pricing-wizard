@@ -44,21 +44,23 @@ const PricingCard: React.FC<PricingCardProps> = ({
   };
 
   return (
-    <Card className={`relative ${isPopular ? 'border-blue-500 border-2' : ''} ${isEnterprise ? 'bg-gradient-to-br from-purple-50 to-blue-50' : ''}`}>
+    <Card className={`relative bg-white/95 backdrop-blur-lg border-0 shadow-2xl transition-all duration-300 hover:shadow-3xl hover:-translate-y-2 ${
+      isPopular ? 'border-2 border-purple-400 scale-105' : ''
+    } ${isEnterprise ? 'bg-gradient-to-br from-purple-50/95 to-blue-50/95' : ''}`}>
       {isPopular && (
-        <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-500">
+        <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-1">
           Most Popular
         </Badge>
       )}
       
       <CardHeader className="text-center pb-4">
-        <CardTitle className="text-xl font-bold">{name}</CardTitle>
+        <CardTitle className="text-xl font-bold text-gray-800">{name}</CardTitle>
         <p className="text-sm text-gray-600 mt-2">{slogan}</p>
         
         <div className="mt-4">
           {!isEnterprise ? (
             <>
-              <div className="text-3xl font-bold">
+              <div className="text-3xl font-bold text-purple-600">
                 {isYearly ? yearlyPrice : monthlyPrice}
                 {!isYearly && monthlyPrice !== 'Free' && <span className="text-sm text-gray-500">/month</span>}
               </div>
@@ -82,13 +84,17 @@ const PricingCard: React.FC<PricingCardProps> = ({
       <CardContent className="space-y-3">
         {Object.entries(features).map(([feature, value]) => (
           <div key={feature} className="flex items-center justify-between">
-            <span className="text-sm">{feature}</span>
+            <span className="text-sm text-gray-700">{feature}</span>
             {renderFeatureValue(value)}
           </div>
         ))}
         
         <Button 
-          className={`w-full mt-6 ${isEnterprise ? 'bg-purple-600 hover:bg-purple-700' : isPopular ? 'bg-blue-600 hover:bg-blue-700' : ''}`}
+          className={`w-full mt-6 font-semibold transition-all duration-300 ${
+            isEnterprise || isPopular 
+              ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl' 
+              : 'border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white bg-transparent'
+          }`}
           variant={isEnterprise || isPopular ? 'default' : 'outline'}
         >
           {isEnterprise ? 'Contact Sales' : name === 'Starter' ? 'Get Started Free' : 'Choose Plan'}

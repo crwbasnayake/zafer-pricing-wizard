@@ -24,19 +24,19 @@ const PricingFAQ = () => {
 
   return (
     <div className="mt-16">
-      <h2 className="text-3xl font-bold text-center mb-8">Zafer Pricing FAQ's</h2>
-      <div className="grid gap-6 max-w-4xl mx-auto">
-        {faqs.map((faq, index) => (
-          <Card key={index}>
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold">{faq.question}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">{faq.answer}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Card className="bg-white/95 backdrop-blur-lg border-0 shadow-2xl">
+        <CardHeader>
+          <CardTitle className="text-3xl text-center text-gray-800">Zafer Pricing FAQ's</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {faqs.map((faq, index) => (
+            <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">{faq.question}</h3>
+              <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
 };

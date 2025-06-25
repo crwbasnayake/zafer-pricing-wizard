@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PricingCard from './PricingCard';
 import PricingToggle from './PricingToggle';
@@ -189,24 +190,27 @@ const PricingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-500 to-purple-700" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
+      <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-12 text-white">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Choose the perfect plan for you
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto mb-8">
+          <p className="text-xl opacity-90 max-w-4xl mx-auto mb-8">
             Explore Zafer's packages tailored for individuals, small businesses, and enterprise clients. From data privacy and security to AI-powered solutions, each plan offers secure, seamless workflows.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+            <Button 
+              size="lg" 
+              className="bg-white text-purple-600 hover:bg-gray-100 font-semibold px-8 py-3"
+            >
               Start Free Trial
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-3"
+              className="border-white text-white hover:bg-white/10 font-semibold px-8 py-3"
             >
               Request Demo
             </Button>
@@ -225,27 +229,27 @@ const PricingPage = () => {
 
         {/* Feature Comparison Table */}
         <div className="mt-16">
-          <Card>
+          <Card className="bg-white/95 backdrop-blur-lg border-0 shadow-2xl">
             <CardHeader>
-              <CardTitle className="text-2xl text-center">Feature Comparison</CardTitle>
+              <CardTitle className="text-3xl text-center text-gray-800">Feature Comparison</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-3 px-4 font-semibold">Features</th>
+                    <tr className="border-b-2 border-gray-200">
+                      <th className="text-left py-4 px-4 font-semibold text-gray-800">Features</th>
                       {pricingData.map((plan) => (
-                        <th key={plan.name} className="text-center py-3 px-4 font-semibold min-w-32">
+                        <th key={plan.name} className="text-center py-4 px-4 font-semibold min-w-32 text-gray-800">
                           {plan.name}
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {comparisonFeatures.map((feature) => (
-                      <tr key={feature} className="border-b hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium">{feature}</td>
+                    {comparisonFeatures.map((feature, index) => (
+                      <tr key={feature} className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-gray-50/50' : ''}`}>
+                        <td className="py-3 px-4 font-medium text-gray-700">{feature}</td>
                         {pricingData.map((plan) => (
                           <td key={`${plan.name}-${feature}`} className="py-3 px-4 text-center">
                             {renderComparisonValue(plan.features[feature])}
